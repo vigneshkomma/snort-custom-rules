@@ -9,9 +9,9 @@ This project contains custom snort rules for monitoring the corresponding networ
 Protocols included in the project:
 
 
->1.SSH
+1.SSH
 
->2.TCP
+2.TCP
 
 
     NOTE: The rules are written for Snort version 2.9.20

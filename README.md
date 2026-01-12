@@ -54,7 +54,9 @@ The log files for snort will located at /var/log/snort.
 
 To test the rules, run snort in console mode and use the bash scripts in tests/ from the project.
 
-Run the bash scripts from an another system with the IP of the testing machine and monitor the console for errors. 
+In the Bash scripts assign the testing machine IP to the $VM_IP variable 
+
+Run the bash scripts from an another system with the IP of the testing machine and monitor the console for alerts. 
 
 Run the bash scripts by:
 

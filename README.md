@@ -13,6 +13,10 @@ Protocols included in the project:
 
 2.TCP
 
+3.FTP
+
+4.HTTPS
+
 
     NOTE: The rules are written for Snort version 2.9.20
 

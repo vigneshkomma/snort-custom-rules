@@ -1,0 +1,15 @@
+# 1. Detect FTP Login Attempt (Monitoring USER command)
+alert tcp $EXTERNAL_NET any -> $HOME_NET 21 (msg:"FTP User Login Attempt"; flow:to_server,established; content:"USER"; nocase; sid:3000001; rev:1;)
+
+# 2. Detect FTP Brute Force (Multiple password failures)
+# Triggers if the server sends "530 " (Login incorrect) 5 times in 60 seconds.
+alert tcp $HOME_NET 21 -> $EXTERNAL_NET any (msg:"FTP Brute Force Attempt (Failed Login)"; flow:from_server,established; content:"530 "; threshold:type both, track by_dst, count 5, seconds 60; sid:3000002; rev:1;)
+
+# 3. Detect Anonymous FTP Login
+alert tcp $EXTERNAL_NET any -> $HOME_NET 21 (msg:"FTP Anonymous Login Attempt"; flow:to_server,established; content:"anonymous"; nocase; sid:3000003; rev:1;)
+
+# 4. Detect Sensitive File Access (e.g., trying to download /etc/passwd)
+alert tcp $EXTERNAL_NET any -> $HOME_NET 21 (msg:"FTP Possible Reconnaissance (RETR passwd)"; flow:to_server,established; content:"RETR"; nocase; content:"passwd"; distance:1; sid:3000004; rev:1;)
+
+# 5. Detect FTP "Nuke" or Denial of Service attempt
+alert tcp $EXTERNAL_NET any -> $HOME_NET 21 (msg:"FTP Large Command DoS Attempt"; flow:to_server,established; dsize:>500; sid:3000005; rev:1;)
